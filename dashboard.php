@@ -187,8 +187,8 @@ include __DIR__ . '/includes/navbar.php';
                                                 <i class="bi bi-<?= $t['tipo'] === 'receita' ? 'arrow-down text-success' : 'arrow-up text-danger' ?>" style="font-size:0.75rem;"></i>
                                                 <?= htmlspecialchars($t['descricao']) ?>
                                             </td>
-                                            <td class="page-subtitle"><?= htmlspecialchars($t['categoria'] ?? '—') ?></td>
-                                            <td class="page-subtitle"><?= date('d/m/Y', strtotime($t['data'])) ?></td>
+                                            <td class="col-categoria"><?= htmlspecialchars($t['categoria'] ?? '—') ?></td>
+                                            <td class="col-data"><?= date('d/m/Y', strtotime($t['data'])) ?></td>
                                             <td class="text-end pe-3 fw-semibold <?= $t['tipo'] === 'receita' ? 'text-success' : 'text-danger' ?>">
                                                 <?= $t['tipo'] === 'receita' ? '+' : '−' ?>
                                                 R$ <?= number_format($t['valor'], 2, ',', '.') ?>

@@ -161,13 +161,13 @@ include __DIR__ . '/../includes/navbar.php';
                             <?php foreach ($transacoes as $t): ?>
                                 <tr>
                                     <td class="ps-3 fw-semibold"><?= htmlspecialchars($t['descricao']) ?></td>
-                                    <td class="text-muted small"><?= htmlspecialchars($t['categoria'] ?? '—') ?></td>
+                                    <td class="col-categoria"><?= htmlspecialchars($t['categoria'] ?? '—') ?></td>
                                     <td>
                                         <span class="tipo-tag <?= $t['tipo'] ?>">
                                             <?= $t['tipo'] === 'receita' ? '↓ ENTRADA' : '↑ SAÍDA' ?>
                                         </span>
                                     </td>
-                                    <td class="text-muted small"><?= date('d/m/Y', strtotime($t['data'])) ?></td>
+                                    <td class="col-data"><?= date('d/m/Y', strtotime($t['data'])) ?></td>
                                     <td class="text-end fw-bold <?= $t['tipo'] === 'receita' ? 'text-success' : 'text-danger' ?>">
                                         <?= $t['tipo'] === 'receita' ? '+' : '-' ?>
                                         R$ <?= number_format($t['valor'], 2, ',', '.') ?>

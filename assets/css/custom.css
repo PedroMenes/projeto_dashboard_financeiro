@@ -245,16 +245,24 @@ a:hover { color: var(--eva-green); }
 
 /* ===== Tabela ===== */
 .table {
-    /* sobrescreve as variáveis internas do Bootstrap para o tema escuro */
-    --bs-table-bg:          transparent;
-    --bs-table-color:       var(--eva-text);
+    --bs-table-bg:           transparent;
+    --bs-table-color:        var(--eva-text);
     --bs-table-border-color: rgba(45,18,84,0.4);
-    --bs-table-hover-bg:    rgba(124,58,237,0.1);
-    --bs-table-hover-color: var(--eva-text-bright);
-    --bs-table-striped-bg:  rgba(45,18,84,0.08);
+    --bs-table-hover-bg:     rgba(124,58,237,0.12);
+    --bs-table-hover-color:  var(--eva-text-bright);
+    --bs-table-striped-bg:   rgba(45,18,84,0.08);
     color: var(--eva-text);
     font-size: 0.92rem;
     font-family: 'Share Tech Mono', monospace;
+}
+
+/* Bootstrap 5 aplica background diretamente em cada célula —
+   precisamos neutralizar essa regra específica */
+.table > :not(caption) > * > * {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: var(--eva-text);
+    border-color: rgba(45,18,84,0.4);
 }
 
 .table th {
@@ -262,25 +270,23 @@ a:hover { color: var(--eva-green); }
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--eva-text-muted);
+    color: var(--eva-text-muted) !important;
     border-bottom: 1px solid var(--eva-border) !important;
     padding-top: 0.85rem;
     padding-bottom: 0.85rem;
-    background: transparent !important;
 }
 
 .table td {
-    border-color: rgba(45,18,84,0.4);
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
     vertical-align: middle;
-    color: var(--eva-text);
-    background-color: transparent;
 }
 
-.table-hover tbody tr:hover td {
-    background-color: rgba(124,58,237,0.1) !important;
+/* Hover: aplica fundo roxo na linha inteira */
+.table-hover > tbody > tr:hover > * {
+    background-color: rgba(124,58,237,0.12) !important;
     color: var(--eva-text-bright) !important;
+    box-shadow: none !important;
 }
 
 /* ===== Formulários ===== */
@@ -595,6 +601,21 @@ footer {
 }
 .stat-box.saldo-neg .stat-box-value { color: #ef4444; text-shadow: 0 0 8px rgba(239,68,68,0.4); }
 .stat-box.saldo-neg .stat-box-label { color: rgba(239,68,68,0.6); }
+
+/* ===== Colunas especiais da tabela ===== */
+.col-categoria {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: #a78bfa;          /* roxo suave — remete à paleta EVA */
+    letter-spacing: 0.03em;
+}
+
+.col-data {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: #fcd34d;          /* âmbar — cor de alerta/timestamp NERV */
+    letter-spacing: 0.05em;
+}
 
 /* ===== Badge de tipo na tabela ===== */
 .tipo-tag {
