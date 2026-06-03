@@ -142,7 +142,7 @@ a:hover { color: var(--eva-green); }
     border-radius: 4px;
     box-shadow: var(--eva-glow-purple);
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.78rem;
     letter-spacing: 0.05em;
     padding: 4px;
 }
@@ -213,7 +213,7 @@ a:hover { color: var(--eva-green); }
 /* ===== Textos de apoio ===== */
 .page-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 600;
     color: var(--eva-text-bright);
     letter-spacing: 0.06em;
@@ -222,7 +222,7 @@ a:hover { color: var(--eva-green); }
 
 .page-subtitle {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 0.78rem;
+    font-size: 0.85rem;
     color: var(--eva-text-muted);
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -245,33 +245,42 @@ a:hover { color: var(--eva-green); }
 
 /* ===== Tabela ===== */
 .table {
+    /* sobrescreve as variáveis internas do Bootstrap para o tema escuro */
+    --bs-table-bg:          transparent;
+    --bs-table-color:       var(--eva-text);
+    --bs-table-border-color: rgba(45,18,84,0.4);
+    --bs-table-hover-bg:    rgba(124,58,237,0.1);
+    --bs-table-hover-color: var(--eva-text-bright);
+    --bs-table-striped-bg:  rgba(45,18,84,0.08);
     color: var(--eva-text);
-    font-size: 0.82rem;
+    font-size: 0.92rem;
     font-family: 'Share Tech Mono', monospace;
 }
 
 .table th {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--eva-text-muted);
     border-bottom: 1px solid var(--eva-border) !important;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    background: transparent;
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+    background: transparent !important;
 }
 
 .table td {
     border-color: rgba(45,18,84,0.4);
-    padding-top: 0.7rem;
-    padding-bottom: 0.7rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
     vertical-align: middle;
     color: var(--eva-text);
+    background-color: transparent;
 }
 
 .table-hover tbody tr:hover td {
-    background: rgba(124,58,237,0.07);
+    background-color: rgba(124,58,237,0.1) !important;
+    color: var(--eva-text-bright) !important;
 }
 
 /* ===== Formulários ===== */
@@ -302,7 +311,7 @@ a:hover { color: var(--eva-green); }
 
 .form-label {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     color: var(--eva-text-muted);
     font-weight: 500;
     letter-spacing: 0.1em;
@@ -320,12 +329,12 @@ a:hover { color: var(--eva-green); }
 /* ===== Botões ===== */
 .btn {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.76rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     border-radius: 4px;
-    padding: 0.45rem 1rem;
+    padding: 0.5rem 1.1rem;
     transition: all 0.2s;
 }
 
@@ -387,10 +396,10 @@ a:hover { color: var(--eva-green); }
 /* ===== Badges ===== */
 .badge {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.6rem;
+    font-size: 0.68rem;
     letter-spacing: 0.08em;
     border-radius: 3px;
-    padding: 3px 8px;
+    padding: 4px 10px;
     font-weight: 600;
 }
 
@@ -401,7 +410,7 @@ a:hover { color: var(--eva-green); }
 .alert {
     border-radius: 4px;
     font-family: 'Share Tech Mono', monospace;
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     border: 1px solid;
 }
 
@@ -538,7 +547,7 @@ footer {
 
 .stat-box-label {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.6rem;
+    font-size: 0.68rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     display: block;
@@ -546,7 +555,7 @@ footer {
 }
 
 .stat-box-value {
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 700;
     display: block;
     letter-spacing: 0.03em;
@@ -590,11 +599,11 @@ footer {
 /* ===== Badge de tipo na tabela ===== */
 .tipo-tag {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.58rem;
+    font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 3px 10px;
+    padding: 4px 12px;
     border-radius: 3px;
     border: 1px solid;
     white-space: nowrap;
