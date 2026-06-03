@@ -1,0 +1,25 @@
+# Configuração local do banco (se sobrescrever)
+config/local.php
+
+# Dependências e cache
+vendor/
+node_modules/
+.cache/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs do PHP/Apache
+*.log
+error_log
+
+# Uploads de usuários (se houver)
+uploads/
