@@ -8,7 +8,7 @@
 
 // MAGI SYSTEM — CONTROLE FINANCEIRO
 // CLASSIFICAÇÃO: OPERACIONAL
-// VERSÃO: 1.0.0
+// VERSÃO: 2.0.0
 ```
 
 ---
@@ -25,8 +25,10 @@ Sistema de **controle financeiro pessoal** desenvolvido em PHP com MySQL. Interf
 Funcionalidades:
 - Autenticação de operadores (login / cadastro / logout)
 - Dashboard com resumo mensal e gráfico de despesas por categoria
-- CRUD completo de transações (receitas e despesas)
-- Filtros por mês e tipo
+- **CRUD completo de transações** (receitas e despesas)
+- **CRUD completo de categorias** (separadas por tipo)
+- **CRUD completo de usuários** via página de perfil (editar dados, trocar senha, excluir conta)
+- Filtros por mês e tipo na listagem de transações
 - Design responsivo (mobile e desktop)
 
 ---
@@ -53,6 +55,7 @@ projeto_dashboard_financeiro/
 ├── 📄 register.php               → Cadastro de novo operador
 ├── 📄 logout.php                 → Encerramento de sessão
 ├── 📄 dashboard.php              → Painel de controle principal
+├── 📄 perfil.php                 → Perfil do usuário (editar / excluir conta)
 ├── 📄 database.sql               → Script de criação do banco
 │
 ├── 📁 transacoes/
@@ -60,6 +63,12 @@ projeto_dashboard_financeiro/
 │   ├── create.php                → Registro de nova transação
 │   ├── edit.php                  → Edição de transação existente
 │   └── delete.php                → Remoção de transação
+│
+├── 📁 categorias/
+│   ├── index.php                 → Listagem separada por tipo
+│   ├── create.php                → Nova categoria
+│   ├── edit.php                  → Edição de categoria existente
+│   └── delete.php                → Remoção (bloqueada se em uso)
 │
 ├── 📁 config/
 │   └── database.php              → Conexão PDO com o MySQL
@@ -77,12 +86,23 @@ projeto_dashboard_financeiro/
 
 ---
 
+## ▸ CRUDs IMPLEMENTADOS
+
+| Operação | Usuários | Transações | Categorias |
+|---|---|---|---|
+| **Create** | `register.php` | `transacoes/create.php` | `categorias/create.php` |
+| **Read** | `perfil.php` | `transacoes/index.php` | `categorias/index.php` |
+| **Update** | `perfil.php` | `transacoes/edit.php` | `categorias/edit.php` |
+| **Delete** | `perfil.php` | `transacoes/delete.php` | `categorias/delete.php` |
+
+---
+
 ## ▸ INSTALAÇÃO — PROTOCOLO DE ATIVAÇÃO
 
 ### 01 — Clonar o repositório
 
 ```bash
-git clone https://github.com/pereiramouton/projeto_dashboard_financeiro.git
+git clone https://github.com/PedroMenes/projeto_dashboard_financeiro.git
 ```
 
 Mova a pasta para dentro do diretório raiz do XAMPP:
@@ -150,15 +170,16 @@ Categorias padrão incluídas: Salário, Freelance, Investimentos, Alimentação
 - Queries com **PDO Prepared Statements** (proteção contra SQL Injection)
 - Dados de saída escapados com `htmlspecialchars()` (proteção contra XSS)
 - Regeneração de ID de sessão no login
+- Exclusão de categoria bloqueada quando vinculada a transações
 - Todas as rotas protegidas verificam autenticação
 
 ---
 
 ## ▸ CAPTURAS DE TELA
 
-| Login | Dashboard | Transações |
-|---|---|---|
-| Terminal NERV | Painel com gráfico | Tabela com filtros |
+| Login | Dashboard | Transações | Categorias | Perfil |
+|---|---|---|---|---|
+| Terminal NERV | Painel com gráfico | Tabela com filtros | Listagem por tipo | Edição e exclusão |
 
 ---
 
