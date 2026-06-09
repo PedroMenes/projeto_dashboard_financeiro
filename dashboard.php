@@ -59,8 +59,8 @@ $stmtLimites = $db->prepare("
         AND DATE_FORMAT(t.data,'%Y-%m') = ?
     WHERE c.tipo = 'despesa' AND c.limite_mensal IS NOT NULL
     GROUP BY c.id, c.nome, c.limite_mensal
-    HAVING gasto >= (c.limite_mensal * 0.8)
-    ORDER BY (gasto / c.limite_mensal) DESC
+    HAVING COALESCE(SUM(t.valor),0) >= (c.limite_mensal * 0.8)
+    ORDER BY (COALESCE(SUM(t.valor),0) / c.limite_mensal) DESC
 ");
 $stmtLimites->execute([$user['id'], $mesAtual]);
 $alertasLimite = $stmtLimites->fetchAll();

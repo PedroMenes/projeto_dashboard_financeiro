@@ -8,7 +8,7 @@
 
 // MAGI SYSTEM — CONTROLE FINANCEIRO
 // CLASSIFICAÇÃO: OPERACIONAL
-// VERSÃO: 2.0.0
+// VERSÃO: 3.0.0
 ```
 
 ---
@@ -24,11 +24,15 @@ Sistema de **controle financeiro pessoal** desenvolvido em PHP com MySQL. Interf
 
 Funcionalidades:
 - Autenticação de operadores (login / cadastro / logout)
-- Dashboard com resumo mensal e gráfico de despesas por categoria
-- **CRUD completo de transações** (receitas e despesas)
-- **CRUD completo de categorias** (separadas por tipo)
-- **CRUD completo de usuários** via página de perfil (editar dados, trocar senha, excluir conta)
-- Filtros por mês e tipo na listagem de transações
+- Dashboard com resumo mensal, alertas de limite e widgets de metas
+- **CRUD completo de Transações** (receitas e despesas)
+- **CRUD completo de Categorias** com limite mensal configurável
+- **CRUD completo de Usuários** via página de perfil
+- **CRUD completo de Metas Financeiras** com depósitos e barra de progresso
+- **CRUD completo de Transações Recorrentes** com lançamento mensal
+- **Relatórios por período** com gráficos comparativos (3, 6 ou 12 meses)
+- Alertas automáticos de limite de categoria (80% / 100%)
+- Animação de painel mecha na tela de login
 - Design responsivo (mobile e desktop)
 
 ---
@@ -51,12 +55,13 @@ Funcionalidades:
 projeto_dashboard_financeiro/
 │
 ├── 📄 index.php                  → Porta de entrada (redireciona)
-├── 📄 login.php                  → Terminal de acesso
+├── 📄 login.php                  → Terminal de acesso (com animação mecha)
 ├── 📄 register.php               → Cadastro de novo operador
 ├── 📄 logout.php                 → Encerramento de sessão
 ├── 📄 dashboard.php              → Painel de controle principal
 ├── 📄 perfil.php                 → Perfil do usuário (editar / excluir conta)
-├── 📄 database.sql               → Script de criação do banco
+├── 📄 relatorios.php             → Relatórios por período com gráficos
+├── 📄 database.sql               → Script de criação do banco de dados
 │
 ├── 📁 transacoes/
 │   ├── index.php                 → Listagem com filtros
@@ -65,10 +70,24 @@ projeto_dashboard_financeiro/
 │   └── delete.php                → Remoção de transação
 │
 ├── 📁 categorias/
-│   ├── index.php                 → Listagem separada por tipo
+│   ├── index.php                 → Listagem com uso vs limite mensal
 │   ├── create.php                → Nova categoria
-│   ├── edit.php                  → Edição de categoria existente
+│   ├── edit.php                  → Edição + configuração de limite
 │   └── delete.php                → Remoção (bloqueada se em uso)
+│
+├── 📁 metas/
+│   ├── index.php                 → Cards de metas com progresso
+│   ├── create.php                → Nova meta
+│   ├── edit.php                  → Edição de meta
+│   ├── delete.php                → Remoção de meta
+│   └── depositar.php             → Registrar depósito na meta
+│
+├── 📁 recorrencias/
+│   ├── index.php                 → Listagem: pendentes / lançadas / inativas
+│   ├── create.php                → Nova recorrência
+│   ├── edit.php                  → Edição de recorrência
+│   ├── delete.php                → Remoção de recorrência
+│   └── lancar.php                → Lança como transação no mês atual
 │
 ├── 📁 config/
 │   └── database.php              → Conexão PDO com o MySQL
@@ -76,7 +95,7 @@ projeto_dashboard_financeiro/
 ├── 📁 includes/
 │   ├── auth.php                  → Controle de sessão e autenticação
 │   ├── header.php                → Cabeçalho HTML (fontes, CSS)
-│   ├── navbar.php                → Barra de navegação
+│   ├── navbar.php                → Barra de navegação responsiva
 │   └── footer.php                → Rodapé + scripts JS
 │
 └── 📁 assets/
@@ -88,12 +107,12 @@ projeto_dashboard_financeiro/
 
 ## ▸ CRUDs IMPLEMENTADOS
 
-| Operação | Usuários | Transações | Categorias |
-|---|---|---|---|
-| **Create** | `register.php` | `transacoes/create.php` | `categorias/create.php` |
-| **Read** | `perfil.php` | `transacoes/index.php` | `categorias/index.php` |
-| **Update** | `perfil.php` | `transacoes/edit.php` | `categorias/edit.php` |
-| **Delete** | `perfil.php` | `transacoes/delete.php` | `categorias/delete.php` |
+| Operação | Usuários | Transações | Categorias | Metas | Recorrências |
+|---|---|---|---|---|---|
+| **Create** | `register.php` | `transacoes/create.php` | `categorias/create.php` | `metas/create.php` | `recorrencias/create.php` |
+| **Read** | `perfil.php` | `transacoes/index.php` | `categorias/index.php` | `metas/index.php` | `recorrencias/index.php` |
+| **Update** | `perfil.php` | `transacoes/edit.php` | `categorias/edit.php` | `metas/edit.php` | `recorrencias/edit.php` |
+| **Delete** | `perfil.php` | `transacoes/delete.php` | `categorias/delete.php` | `metas/delete.php` | `recorrencias/delete.php` |
 
 ---
 
@@ -142,11 +161,13 @@ Código         : 123456
 
 ```sql
 usuarios     → id, nome, email, senha, created_at
-categorias   → id, nome, tipo (receita | despesa)
+categorias   → id, nome, tipo (receita | despesa), limite_mensal
 transacoes   → id, usuario_id, descricao, valor, tipo, categoria_id, data, created_at
+metas        → id, usuario_id, nome, descricao, valor_alvo, valor_atual, prazo, created_at
+recorrencias → id, usuario_id, descricao, valor, tipo, categoria_id, dia_vencimento, ativa, ultimo_lancamento, created_at
 ```
 
-Categorias padrão incluídas: Salário, Freelance, Investimentos, Alimentação, Moradia, Transporte, Saúde, Educação, Lazer e outros.
+Categorias padrão incluídas com limites mensais pré-configurados: Alimentação (R$ 800), Moradia (R$ 1.500), Transporte (R$ 400), Saúde (R$ 300), Educação (R$ 500), Lazer (R$ 300).
 
 ---
 
@@ -172,14 +193,6 @@ Categorias padrão incluídas: Salário, Freelance, Investimentos, Alimentação
 - Regeneração de ID de sessão no login
 - Exclusão de categoria bloqueada quando vinculada a transações
 - Todas as rotas protegidas verificam autenticação
-
----
-
-## ▸ CAPTURAS DE TELA
-
-| Login | Dashboard | Transações | Categorias | Perfil |
-|---|---|---|---|---|
-| Terminal NERV | Painel com gráfico | Tabela com filtros | Listagem por tipo | Edição e exclusão |
 
 ---
 
