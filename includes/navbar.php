@@ -34,6 +34,12 @@ $user = currentUser();
                         <i class="bi bi-plus me-1"></i>Registrar
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= (strpos($_SERVER['PHP_SELF'], 'categorias') !== false) ? 'active' : '' ?>"
+                       href="/projeto_dashboard_financeiro/categorias/index.php">
+                        <i class="bi bi-tags me-1"></i>Categorias
+                    </a>
+                </li>
             </ul>
 
             <ul class="navbar-nav align-items-center">
@@ -46,6 +52,13 @@ $user = currentUser();
                         <span><?= htmlspecialchars(strtoupper(explode(' ', $user['nome'])[0])) ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item <?= $currentPage === 'perfil.php' ? 'active' : '' ?>"
+                               href="/projeto_dashboard_financeiro/perfil.php">
+                                <i class="bi bi-person-gear me-2"></i>MEU PERFIL
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li>
                             <a class="dropdown-item" href="/projeto_dashboard_financeiro/logout.php">
                                 <i class="bi bi-power me-2"></i>DESCONECTAR

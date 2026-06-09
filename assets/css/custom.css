@@ -642,6 +642,57 @@ footer {
     color: #fb923c;
 }
 
+/* ===== Nav Tabs (página de perfil) ===== */
+.nav-tabs {
+    border-bottom: 1px solid var(--eva-border) !important;
+    gap: 4px;
+}
+
+.nav-tabs .nav-link {
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 4px 4px 0 0 !important;
+    color: var(--eva-text-muted) !important;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.1rem !important;
+    transition: all 0.2s;
+    text-shadow: none !important;
+}
+
+.nav-tabs .nav-link:hover {
+    background: rgba(124,58,237,0.08) !important;
+    border-color: var(--eva-border) !important;
+    color: var(--eva-purple-light) !important;
+}
+
+.nav-tabs .nav-link.active {
+    background: rgba(124,58,237,0.12) !important;
+    border-color: var(--eva-border-bright) var(--eva-border-bright) transparent !important;
+    color: var(--eva-purple-light) !important;
+    text-shadow: 0 0 8px rgba(167,139,250,0.4) !important;
+}
+
+.nav-tabs .nav-link.text-danger {
+    color: rgba(239,68,68,0.6) !important;
+}
+
+.nav-tabs .nav-link.text-danger:hover {
+    color: var(--eva-red) !important;
+    background: rgba(239,68,68,0.08) !important;
+    border-color: rgba(239,68,68,0.3) !important;
+}
+
+.nav-tabs .nav-link.text-danger.active {
+    color: var(--eva-red) !important;
+    background: rgba(239,68,68,0.1) !important;
+    border-color: rgba(239,68,68,0.5) rgba(239,68,68,0.5) transparent !important;
+    text-shadow: 0 0 8px rgba(239,68,68,0.4) !important;
+}
+
 /* ===== Mobile ===== */
 @media (max-width: 576px) {
     .summary-card .card-body { padding: 0.85rem; }

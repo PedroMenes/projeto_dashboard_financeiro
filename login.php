@@ -66,6 +66,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <i class="bi bi-check-circle"></i>
                 <span>OPERADOR REGISTRADO — Faça login para continuar.</span>
             </div>
+        <?php elseif ($_GET['msg'] ?? '' === 'conta_excluida'): ?>
+            <div class="alert alert-warning d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-trash"></i>
+                <span>CONTA ENCERRADA — Seus dados foram removidos do sistema.</span>
+            </div>
         <?php endif; ?>
 
         <?php if ($erro): ?>
