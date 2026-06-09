@@ -22,16 +22,37 @@ $user = currentUser();
                         <i class="bi bi-speedometer2 me-1"></i>Dashboard
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= ($currentPage === 'index.php' && strpos($_SERVER['PHP_SELF'], 'transacoes') !== false) ? 'active' : '' ?>"
-                       href="/projeto_dashboard_financeiro/transacoes/index.php">
+
+                <!-- Dropdown Transações -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle <?= (strpos($_SERVER['PHP_SELF'], 'transacoes') !== false || strpos($_SERVER['PHP_SELF'], 'recorrencias') !== false) ? 'active' : '' ?>"
+                       href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-arrow-left-right me-1"></i>Transações
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/projeto_dashboard_financeiro/transacoes/index.php">
+                            <i class="bi bi-list-ul me-2"></i>Listar todas
+                        </a></li>
+                        <li><a class="dropdown-item" href="/projeto_dashboard_financeiro/transacoes/create.php">
+                            <i class="bi bi-plus me-2"></i>Nova transação
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/projeto_dashboard_financeiro/recorrencias/index.php">
+                            <i class="bi bi-arrow-repeat me-2"></i>Recorrências
+                        </a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link <?= (strpos($_SERVER['PHP_SELF'], 'metas') !== false) ? 'active' : '' ?>"
+                       href="/projeto_dashboard_financeiro/metas/index.php">
+                        <i class="bi bi-bullseye me-1"></i>Metas
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?= $currentPage === 'create.php' ? 'active' : '' ?>"
-                       href="/projeto_dashboard_financeiro/transacoes/create.php">
-                        <i class="bi bi-plus me-1"></i>Registrar
+                    <a class="nav-link <?= $currentPage === 'relatorios.php' ? 'active' : '' ?>"
+                       href="/projeto_dashboard_financeiro/relatorios.php">
+                        <i class="bi bi-bar-chart-line me-1"></i>Relatórios
                     </a>
                 </li>
                 <li class="nav-item">

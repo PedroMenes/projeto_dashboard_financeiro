@@ -642,6 +642,41 @@ footer {
     color: #fb923c;
 }
 
+/* ===== Metas — barra de progresso ===== */
+.meta-progress-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(45,18,84,0.5);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.meta-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--eva-purple-light);
+    transition: width 0.6s ease;
+}
+
+.meta-card {
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.meta-card:hover {
+    box-shadow: var(--eva-glow-purple) !important;
+}
+
+/* ===== Form switch (toggle ativa/inativa) ===== */
+.form-check-input:checked {
+    background-color: var(--eva-purple);
+    border-color: var(--eva-purple);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.25);
+    border-color: var(--eva-purple);
+}
+
 /* ===== Nav Tabs (página de perfil) ===== */
 .nav-tabs {
     border-bottom: 1px solid var(--eva-border) !important;

@@ -37,9 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $erros[] = 'Já existe outra categoria com este nome e tipo.';
     }
 
+    $dados['limite_mensal'] = $_POST['limite_mensal'] ?? '';
+
     if (empty($erros)) {
-        $stmt = $db->prepare("UPDATE categorias SET nome = ?, tipo = ? WHERE id = ?");
-        $stmt->execute([$dados['nome'], $dados['tipo'], $id]);
+        $stmt = $db->prepare("UPDATE categorias SET nome = ?, tipo = ?, limite_mensal = ? WHERE id = ?");
+        $stmt->execute([$dados['nome'], $dados['tipo'], $dados['limite_mensal'] ?: null, $id]);
         header('Location: /projeto_dashboard_financeiro/categorias/index.php?msg=editada');
         exit;
     }
@@ -98,10 +100,22 @@ include __DIR__ . '/../includes/navbar.php';
                     </div>
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="nome" class="form-label fw-semibold">Nome da Categoria</label>
                     <input type="text" id="nome" name="nome" class="form-control"
                            value="<?= htmlspecialchars($dados['nome']) ?>" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="limite_mensal" class="form-label fw-semibold">
+                        Limite Mensal (R$) <span class="page-subtitle">(opcional — somente despesas)</span>
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">R$</span>
+                        <input type="number" id="limite_mensal" name="limite_mensal" class="form-control"
+                               placeholder="Sem limite" step="0.01" min="0"
+                               value="<?= htmlspecialchars($dados['limite_mensal'] ?? '') ?>">
+                    </div>
                 </div>
 
                 <div class="d-flex gap-2">

@@ -8,8 +8,22 @@ $db = getDB();
 
 $mensagem = $_GET['msg'] ?? '';
 
+$user = currentUser();
+$mesAtual = date('Y-m');
+
 $stmt = $db->query("SELECT * FROM categorias ORDER BY tipo, nome");
 $categorias = $stmt->fetchAll();
+
+// Gasto atual do mês por categoria (para exibir vs limite)
+$stmtGastos = $db->prepare("
+    SELECT categoria_id, SUM(valor) AS gasto
+    FROM transacoes
+    WHERE usuario_id = ? AND tipo = 'despesa' AND DATE_FORMAT(data,'%Y-%m') = ?
+    GROUP BY categoria_id
+");
+$stmtGastos->execute([$user['id'], $mesAtual]);
+$gastos = [];
+foreach ($stmtGastos->fetchAll() as $g) $gastos[$g['categoria_id']] = (float)$g['gasto'];
 
 $receitas = array_filter($categorias, fn($c) => $c['tipo'] === 'receita');
 $despesas = array_filter($categorias, fn($c) => $c['tipo'] === 'despesa');
@@ -139,11 +153,26 @@ include __DIR__ . '/../includes/navbar.php';
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($despesas as $cat): ?>
+                                    <?php foreach ($despesas as $cat):
+                                        $gasto  = $gastos[$cat['id']] ?? 0;
+                                        $limite = $cat['limite_mensal'] ? (float)$cat['limite_mensal'] : null;
+                                        $pct    = ($limite && $limite > 0) ? min(($gasto / $limite) * 100, 100) : null;
+                                        $corBarra = $pct === null ? null : ($pct >= 100 ? 'var(--eva-red)' : ($pct >= 80 ? 'var(--eva-yellow)' : 'var(--eva-green)'));
+                                    ?>
                                         <tr>
                                             <td class="ps-3">
                                                 <span class="tipo-tag despesa">↑ DESPESA</span>
                                                 <span class="ms-2"><?= htmlspecialchars($cat['nome']) ?></span>
+                                                <?php if ($pct !== null): ?>
+                                                <div class="mt-1" style="max-width:180px;">
+                                                    <div class="meta-progress-track" style="height:4px;">
+                                                        <div class="meta-progress-fill" style="width:<?= $pct ?>%;background:<?= $corBarra ?>;box-shadow:0 0 6px <?= $corBarra ?>;"></div>
+                                                    </div>
+                                                    <small style="font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:<?= $corBarra ?>;">
+                                                        R$ <?= number_format($gasto,2,',','.') ?> / R$ <?= number_format($limite,2,',','.') ?>
+                                                    </small>
+                                                </div>
+                                                <?php endif; ?>
                                             </td>
                                             <td class="text-center pe-3">
                                                 <a href="/projeto_dashboard_financeiro/categorias/edit.php?id=<?= $cat['id'] ?>"
