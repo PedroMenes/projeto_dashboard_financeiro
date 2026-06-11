@@ -1,5 +1,9 @@
+<?php
+require_once __DIR__ . '/tema.php';
+$tema = getTema();
+?>
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-bs-theme="<?= htmlspecialchars(getBsTheme()) ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,4 +13,4 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link href="/projeto_dashboard_financeiro/assets/css/custom.css" rel="stylesheet">
 </head>
-<body>
+<body class="tema-<?= htmlspecialchars($tema) ?>">

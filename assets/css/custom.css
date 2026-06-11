@@ -1,9 +1,387 @@
 /* ================================================================
-   EVA-01 MAGI SYSTEM — NERV Financial Control Interface
-   Palette: Deep Purple / Neon Green / Black / Amber Warning
+   CONTROLE FINANCEIRO — Estilos do sistema
+   Dois temas disponíveis (escolha em "Meu Perfil > Aparência"):
+     - Normal (padrão): visual claro e clássico
+     - EVA // NERV System: visual sci-fi inspirado em Evangelion
    ================================================================ */
 
+/* ===== Tokens de cor — Tema Normal (padrão) ===== */
 :root {
+    --eva-bg:            #f1f3f6;
+    --eva-bg-card:       #ffffff;
+    --eva-bg-card-hover: #f7f8fa;
+    --eva-border:        #e1e5ea;
+    --eva-border-bright: #c5cbd3;
+    --eva-purple:        #6f42c1;
+    --eva-purple-light:  #8b5cf6;
+    --eva-glow-purple:   none;
+    --eva-green:         #198754;
+    --eva-green-dim:     #20c997;
+    --eva-glow-green:    none;
+    --eva-orange:        #fd7e14;
+    --eva-glow-orange:   none;
+    --eva-yellow:        #ffc107;
+    --eva-red:           #dc3545;
+    --eva-text:          #2b2f36;
+    --eva-text-muted:    #6c757d;
+    --eva-text-bright:   #111418;
+}
+
+/* ===== Tokens de cor — Tema Escuro ===== */
+body.tema-escuro {
+    --eva-bg:            #16181d;
+    --eva-bg-card:       #1f2228;
+    --eva-bg-card-hover: #272b33;
+    --eva-border:        #343a40;
+    --eva-border-bright: #495057;
+    --eva-purple:        #9d7bf0;
+    --eva-purple-light:  #b794f6;
+    --eva-glow-purple:   none;
+    --eva-green:         #2dd36f;
+    --eva-green-dim:     #20c997;
+    --eva-glow-green:    none;
+    --eva-orange:        #fd9843;
+    --eva-glow-orange:   none;
+    --eva-yellow:        #ffca2c;
+    --eva-red:           #f1556c;
+    --eva-text:          #e9ecef;
+    --eva-text-muted:    #9aa3af;
+    --eva-text-bright:   #ffffff;
+}
+
+/* ===== Base ===== */
+body {
+    background-color: var(--eva-bg);
+    color: var(--eva-text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main { flex: 1; }
+
+a { color: var(--eva-purple); }
+a:hover { color: var(--eva-purple-light); }
+
+.page-title {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--eva-text-bright);
+    letter-spacing: 0.01em;
+}
+
+.page-subtitle {
+    font-size: 0.8rem;
+    color: var(--eva-text-muted);
+    letter-spacing: 0.02em;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+    background-color: var(--eva-bg-card) !important;
+    border-bottom: 1px solid var(--eva-border);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--eva-purple) !important;
+}
+
+.navbar-brand i {
+    color: var(--eva-purple-light);
+}
+
+.nav-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--eva-text-muted) !important;
+    padding: 0.4rem 0.85rem !important;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--eva-purple) !important;
+    background: rgba(111,66,193,0.06);
+    border-color: var(--eva-border);
+}
+
+.nav-link.active {
+    color: var(--eva-purple) !important;
+    background: rgba(111,66,193,0.1);
+    border-color: rgba(111,66,193,0.2);
+}
+
+.navbar-toggler {
+    border: 1px solid var(--eva-border);
+    padding: 4px 8px;
+}
+
+.avatar-sm {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(111,66,193,0.12);
+    border: 1px solid var(--eva-border);
+    color: var(--eva-purple);
+    font-weight: 700;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== Cards ===== */
+.card {
+    background: var(--eva-bg-card) !important;
+    border: 1px solid var(--eva-border) !important;
+    border-radius: 10px !important;
+}
+
+.card-header {
+    background: var(--eva-bg-card-hover) !important;
+    border-bottom: 1px solid var(--eva-border) !important;
+}
+
+/* ===== Cards de resumo ===== */
+.summary-card { transition: box-shadow 0.2s, border-color 0.2s; }
+
+.summary-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
+}
+
+.summary-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    border: 1px solid var(--eva-border);
+    border-radius: 8px;
+    background: var(--eva-bg-card-hover);
+}
+
+/* ===== Tabela ===== */
+.table {
+    color: var(--eva-text);
+    font-size: 0.92rem;
+}
+
+/* ===== Tipo de transação ===== */
+.tipo-check label {
+    border: 1px solid var(--eva-border) !important;
+    color: var(--eva-text-muted);
+    border-radius: 6px !important;
+    transition: all 0.2s;
+}
+
+.tipo-check label:hover {
+    border-color: var(--eva-border-bright) !important;
+    color: var(--eva-text);
+}
+
+.tipo-check label.active {
+    border-color: var(--eva-green) !important;
+    background: rgba(25,135,84,0.08);
+    color: var(--eva-green);
+}
+
+/* ===== Login ===== */
+.bg-login {
+    background-color: var(--eva-bg);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 10px !important;
+}
+
+.login-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--eva-purple);
+    border: 1px solid var(--eva-border);
+    padding: 2px 10px;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+}
+
+.blink {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+.eva-status-bar {
+    height: 3px;
+    background: var(--eva-purple);
+    border-radius: 10px 10px 0 0;
+}
+
+/* ===== Caixas de totais (página de transações) ===== */
+.stat-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid;
+}
+
+.stat-box-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.stat-box-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    display: block;
+}
+
+.stat-box-icon {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.stat-box.receita {
+    background: rgba(25,135,84,0.06);
+    border-color: rgba(25,135,84,0.25);
+}
+.stat-box.receita .stat-box-value,
+.stat-box.receita .stat-box-label { color: var(--eva-green); }
+
+.stat-box.despesa {
+    background: rgba(253,126,20,0.06);
+    border-color: rgba(253,126,20,0.25);
+}
+.stat-box.despesa .stat-box-value,
+.stat-box.despesa .stat-box-label { color: var(--eva-orange); }
+
+.stat-box.saldo-pos {
+    background: rgba(111,66,193,0.06);
+    border-color: rgba(111,66,193,0.25);
+}
+.stat-box.saldo-pos .stat-box-value,
+.stat-box.saldo-pos .stat-box-label { color: var(--eva-purple); }
+
+.stat-box.saldo-neg {
+    background: rgba(220,53,69,0.06);
+    border-color: rgba(220,53,69,0.25);
+}
+.stat-box.saldo-neg .stat-box-value,
+.stat-box.saldo-neg .stat-box-label { color: var(--eva-red); }
+
+/* ===== Colunas especiais da tabela ===== */
+.col-categoria {
+    font-size: 0.85rem;
+    color: var(--eva-purple-light);
+}
+
+.col-data {
+    font-size: 0.85rem;
+    color: var(--eva-text-muted);
+}
+
+/* ===== Badge de tipo na tabela ===== */
+.tipo-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1px solid;
+    white-space: nowrap;
+}
+
+.tipo-tag.receita {
+    background: rgba(25,135,84,0.08);
+    border-color: rgba(25,135,84,0.25);
+    color: var(--eva-green);
+}
+
+.tipo-tag.despesa {
+    background: rgba(253,126,20,0.08);
+    border-color: rgba(253,126,20,0.25);
+    color: var(--eva-orange);
+}
+
+/* ===== Metas — barra de progresso ===== */
+.meta-progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--eva-border);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.meta-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--eva-purple-light);
+    transition: width 0.6s ease;
+}
+
+.meta-card {
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.meta-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
+}
+
+/* ===== Nav Tabs (página de perfil) ===== */
+.nav-tabs .nav-link {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--eva-purple) !important;
+}
+
+/* ===== Footer ===== */
+footer {
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: var(--eva-text-muted);
+    background: var(--eva-bg-card) !important;
+    border-top: 1px solid var(--eva-border) !important;
+    padding: 0.85rem 0 !important;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 576px) {
+    .summary-card .card-body { padding: 0.85rem; }
+    .container-fluid { padding-left: 1rem; padding-right: 1rem; }
+}
+
+
+/* ================================================================
+   EVA-01 MAGI SYSTEM — NERV Financial Control Interface
+   Palette: Deep Purple / Neon Green / Black / Amber Warning
+   Ativado via classe "tema-eva" no <body>
+   ================================================================ */
+
+body.tema-eva {
     --eva-bg:            #05000d;
     --eva-bg-card:       #0b0016;
     --eva-bg-card-hover: #0f001e;
@@ -22,10 +400,14 @@
     --eva-text:          #d4c4f0;
     --eva-text-muted:    #6b5f8a;
     --eva-text-bright:   #ede9fe;
+
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    background-image: radial-gradient(circle, #2d1254 1px, transparent 1px);
+    background-size: 28px 28px;
 }
 
 /* ===== Scanlines overlay ===== */
-body::after {
+body.tema-eva::after {
     content: '';
     position: fixed;
     inset: 0;
@@ -40,38 +422,39 @@ body::after {
     z-index: 9999;
 }
 
-/* ===== Base ===== */
-body {
-    font-family: 'Share Tech Mono', 'Courier New', monospace;
-    background-color: var(--eva-bg);
-    background-image: radial-gradient(circle, #2d1254 1px, transparent 1px);
-    background-size: 28px 28px;
-    color: var(--eva-text);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-main { flex: 1; }
-
-h1, h2, h3, h4, h5, h6, .page-title {
+body.tema-eva h1,
+body.tema-eva h2,
+body.tema-eva h3,
+body.tema-eva h4,
+body.tema-eva h5,
+body.tema-eva h6,
+body.tema-eva .page-title {
     font-family: 'Orbitron', sans-serif;
     letter-spacing: 0.05em;
 }
 
-a { color: var(--eva-purple-light); }
-a:hover { color: var(--eva-green); }
+body.tema-eva .page-title {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+body.tema-eva .page-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+body.tema-eva a:hover { color: var(--eva-green); }
 
 /* ===== Navbar ===== */
-.navbar {
+body.tema-eva .navbar {
     background-color: #030009 !important;
     border-bottom: 1px solid var(--eva-border);
     box-shadow: 0 2px 20px rgba(124,58,237,0.2);
-    padding-top: 0.65rem;
-    padding-bottom: 0.65rem;
 }
 
-.navbar-brand {
+body.tema-eva .navbar-brand {
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
     font-size: 0.85rem;
@@ -81,49 +464,37 @@ a:hover { color: var(--eva-green); }
     text-transform: uppercase;
 }
 
-.navbar-brand i {
+body.tema-eva .navbar-brand i {
     color: var(--eva-purple-light);
     text-shadow: var(--eva-glow-purple);
 }
 
-.nav-link {
+body.tema-eva .nav-link {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.7rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--eva-text-muted) !important;
-    padding: 0.4rem 0.85rem !important;
-    border-radius: 4px;
-    transition: all 0.2s;
-    border: 1px solid transparent;
 }
 
-.nav-link:hover {
+body.tema-eva .nav-link:hover {
     color: var(--eva-purple-light) !important;
     background: rgba(124,58,237,0.08);
     border-color: var(--eva-border);
 }
 
-.nav-link.active {
+body.tema-eva .nav-link.active {
     color: var(--eva-green) !important;
     background: rgba(57,255,20,0.06);
     border-color: rgba(57,255,20,0.2);
     text-shadow: var(--eva-glow-green);
 }
 
-.navbar-toggler {
-    border: 1px solid var(--eva-border);
-    padding: 4px 8px;
-}
-
-.navbar-toggler-icon {
+body.tema-eva .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23a78bfa' stroke-linecap='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-.avatar-sm {
-    width: 28px;
-    height: 28px;
+body.tema-eva .avatar-sm {
     border-radius: 4px;
     background: rgba(124,58,237,0.3);
     border: 1px solid var(--eva-border-bright);
@@ -131,12 +502,9 @@ a:hover { color: var(--eva-green); }
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
     font-size: 0.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.dropdown-menu {
+body.tema-eva .dropdown-menu {
     background: #07000f;
     border: 1px solid var(--eva-border);
     border-radius: 4px;
@@ -147,21 +515,19 @@ a:hover { color: var(--eva-green); }
     padding: 4px;
 }
 
-.dropdown-item {
+body.tema-eva .dropdown-item {
     color: var(--eva-text-muted);
     border-radius: 3px;
     padding: 6px 12px;
 }
 
-.dropdown-item:hover {
+body.tema-eva .dropdown-item:hover {
     background: rgba(239,68,68,0.1);
     color: var(--eva-red);
 }
 
 /* ===== Cards com cantos estilo NERV ===== */
-.card {
-    background: var(--eva-bg-card) !important;
-    border: 1px solid var(--eva-border) !important;
+body.tema-eva .card {
     border-radius: 4px !important;
     box-shadow: inset 0 0 30px rgba(45,18,84,0.3) !important;
     position: relative;
@@ -169,8 +535,8 @@ a:hover { color: var(--eva-green); }
 }
 
 /* decoração de cantos */
-.card::before,
-.card::after {
+body.tema-eva .card::before,
+body.tema-eva .card::after {
     content: '';
     position: absolute;
     width: 14px;
@@ -180,92 +546,62 @@ a:hover { color: var(--eva-green); }
     z-index: 1;
 }
 
-.card::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-.card::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+body.tema-eva .card::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+body.tema-eva .card::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
 
-.card-header {
+body.tema-eva .card-header {
     background: rgba(45,18,84,0.25) !important;
     border-bottom: 1px solid var(--eva-border) !important;
     font-family: 'Orbitron', sans-serif;
 }
 
 /* ===== Cards de resumo ===== */
-.summary-card { transition: border-color 0.2s, box-shadow 0.2s; }
-
-.summary-card:hover {
+body.tema-eva .summary-card:hover {
     border-color: var(--eva-border-bright) !important;
     box-shadow: var(--eva-glow-purple) !important;
 }
 
-.summary-icon {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    flex-shrink: 0;
-    border: 1px solid var(--eva-border);
+body.tema-eva .summary-icon {
     border-radius: 4px;
     background: rgba(45,18,84,0.4);
 }
 
-/* ===== Textos de apoio ===== */
-.page-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--eva-text-bright);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-}
-
-.page-subtitle {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--eva-text-muted);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-}
-
 /* ===== Cores de valor ===== */
-.text-success {
+body.tema-eva .text-success {
     color: var(--eva-green) !important;
     text-shadow: var(--eva-glow-green);
 }
 
-.text-danger {
+body.tema-eva .text-danger {
     color: var(--eva-orange) !important;
     text-shadow: var(--eva-glow-orange);
 }
 
-.text-primary {
+body.tema-eva .text-primary {
     color: var(--eva-purple-light) !important;
 }
 
 /* ===== Tabela ===== */
-.table {
+body.tema-eva .table {
     --bs-table-bg:           transparent;
     --bs-table-color:        var(--eva-text);
     --bs-table-border-color: rgba(45,18,84,0.4);
     --bs-table-hover-bg:     rgba(124,58,237,0.12);
     --bs-table-hover-color:  var(--eva-text-bright);
     --bs-table-striped-bg:   rgba(45,18,84,0.08);
-    color: var(--eva-text);
-    font-size: 0.92rem;
     font-family: 'Share Tech Mono', monospace;
 }
 
 /* Bootstrap 5 aplica background diretamente em cada célula —
    precisamos neutralizar essa regra específica */
-.table > :not(caption) > * > * {
+body.tema-eva .table > :not(caption) > * > * {
     background-color: transparent !important;
     box-shadow: none !important;
     color: var(--eva-text);
     border-color: rgba(45,18,84,0.4);
 }
 
-.table th {
+body.tema-eva .table th {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.72rem;
     text-transform: uppercase;
@@ -276,22 +612,22 @@ a:hover { color: var(--eva-green); }
     padding-bottom: 0.85rem;
 }
 
-.table td {
+body.tema-eva .table td {
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
     vertical-align: middle;
 }
 
 /* Hover: aplica fundo roxo na linha inteira */
-.table-hover > tbody > tr:hover > * {
+body.tema-eva .table-hover > tbody > tr:hover > * {
     background-color: rgba(124,58,237,0.12) !important;
     color: var(--eva-text-bright) !important;
     box-shadow: none !important;
 }
 
 /* ===== Formulários ===== */
-.form-control,
-.form-select {
+body.tema-eva .form-control,
+body.tema-eva .form-select {
     background: #07000f;
     border: 1px solid var(--eva-border);
     color: var(--eva-text);
@@ -300,22 +636,22 @@ a:hover { color: var(--eva-green); }
     border-radius: 4px;
 }
 
-.form-control::placeholder { color: var(--eva-text-muted); }
+body.tema-eva .form-control::placeholder { color: var(--eva-text-muted); }
 
-.form-control:focus,
-.form-select:focus {
+body.tema-eva .form-control:focus,
+body.tema-eva .form-select:focus {
     background: #0a0018;
     border-color: var(--eva-purple);
     color: var(--eva-text-bright);
     box-shadow: 0 0 0 3px rgba(124,58,237,0.2);
 }
 
-.form-select option {
+body.tema-eva .form-select option {
     background: #07000f;
     color: var(--eva-text);
 }
 
-.form-label {
+body.tema-eva .form-label {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.75rem;
     color: var(--eva-text-muted);
@@ -325,7 +661,7 @@ a:hover { color: var(--eva-green); }
     margin-bottom: 0.35rem;
 }
 
-.input-group-text {
+body.tema-eva .input-group-text {
     background: rgba(45,18,84,0.4);
     border: 1px solid var(--eva-border);
     color: var(--eva-text-muted);
@@ -333,7 +669,7 @@ a:hover { color: var(--eva-green); }
 }
 
 /* ===== Botões ===== */
-.btn {
+body.tema-eva .btn {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.76rem;
     font-weight: 600;
@@ -344,63 +680,63 @@ a:hover { color: var(--eva-green); }
     transition: all 0.2s;
 }
 
-.btn-primary {
+body.tema-eva .btn-primary {
     background: var(--eva-purple);
     border-color: var(--eva-purple);
     color: #fff;
 }
 
-.btn-primary:hover {
+body.tema-eva .btn-primary:hover {
     background: #6d28d9;
     border-color: #6d28d9;
     box-shadow: var(--eva-glow-purple);
 }
 
-.btn-outline-primary {
+body.tema-eva .btn-outline-primary {
     color: var(--eva-purple-light);
     border-color: var(--eva-border-bright);
     background: transparent;
 }
 
-.btn-outline-primary:hover {
+body.tema-eva .btn-outline-primary:hover {
     background: rgba(124,58,237,0.15);
     color: var(--eva-purple-light);
     border-color: var(--eva-purple);
     box-shadow: var(--eva-glow-purple);
 }
 
-.btn-outline-secondary {
+body.tema-eva .btn-outline-secondary {
     color: var(--eva-text-muted);
     border-color: var(--eva-border);
     background: transparent;
 }
 
-.btn-outline-secondary:hover {
+body.tema-eva .btn-outline-secondary:hover {
     background: rgba(45,18,84,0.4);
     color: var(--eva-text);
     border-color: var(--eva-border-bright);
 }
 
-.btn-outline-danger {
+body.tema-eva .btn-outline-danger {
     color: var(--eva-orange);
     border-color: rgba(249,115,22,0.3);
     background: transparent;
 }
 
-.btn-outline-danger:hover {
+body.tema-eva .btn-outline-danger:hover {
     background: rgba(249,115,22,0.1);
     color: var(--eva-orange);
     border-color: var(--eva-orange);
     box-shadow: var(--eva-glow-orange);
 }
 
-.btn-danger {
+body.tema-eva .btn-danger {
     background: rgba(239,68,68,0.8);
     border-color: var(--eva-red);
 }
 
 /* ===== Badges ===== */
-.badge {
+body.tema-eva .badge {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.68rem;
     letter-spacing: 0.08em;
@@ -409,37 +745,37 @@ a:hover { color: var(--eva-green); }
     font-weight: 600;
 }
 
-.bg-success { background: rgba(57,255,20,0.15) !important; color: var(--eva-green) !important; }
-.bg-danger  { background: rgba(249,115,22,0.15) !important; color: var(--eva-orange) !important; }
+body.tema-eva .bg-success { background: rgba(57,255,20,0.15) !important; color: var(--eva-green) !important; }
+body.tema-eva .bg-danger  { background: rgba(249,115,22,0.15) !important; color: var(--eva-orange) !important; }
 
 /* ===== Alerts ===== */
-.alert {
+body.tema-eva .alert {
     border-radius: 4px;
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.9rem;
     border: 1px solid;
 }
 
-.alert-success {
+body.tema-eva .alert-success {
     background: rgba(57,255,20,0.06);
     border-color: rgba(57,255,20,0.25);
     color: var(--eva-green);
 }
 
-.alert-danger {
+body.tema-eva .alert-danger {
     background: rgba(249,115,22,0.08);
     border-color: rgba(249,115,22,0.3);
     color: var(--eva-orange);
 }
 
-.alert-warning {
+body.tema-eva .alert-warning {
     background: rgba(251,191,36,0.08);
     border-color: rgba(251,191,36,0.3);
     color: var(--eva-yellow);
 }
 
 /* ===== Tipo de transação ===== */
-.tipo-check label {
+body.tema-eva .tipo-check label {
     background: #07000f;
     border: 1px solid var(--eva-border) !important;
     color: var(--eva-text-muted);
@@ -447,16 +783,15 @@ a:hover { color: var(--eva-green); }
     font-size: 0.7rem;
     letter-spacing: 0.08em;
     border-radius: 4px !important;
-    transition: all 0.2s;
 }
 
-.tipo-check label:hover {
+body.tema-eva .tipo-check label:hover {
     border-color: var(--eva-border-bright) !important;
     color: var(--eva-text);
     background: rgba(45,18,84,0.3);
 }
 
-.tipo-check label.active {
+body.tema-eva .tipo-check label.active {
     border-color: var(--eva-green) !important;
     background: rgba(57,255,20,0.07);
     color: var(--eva-green);
@@ -465,45 +800,35 @@ a:hover { color: var(--eva-green); }
 }
 
 /* ===== Modal ===== */
-.modal-content {
+body.tema-eva .modal-content {
     background: #07000f;
     border: 1px solid var(--eva-border);
     border-radius: 4px;
     color: var(--eva-text);
 }
 
-.modal-header { border-bottom: 1px solid var(--eva-border); }
-.modal-footer { border-top: 1px solid var(--eva-border); }
+body.tema-eva .modal-header { border-bottom: 1px solid var(--eva-border); }
+body.tema-eva .modal-footer { border-top: 1px solid var(--eva-border); }
 
 /* ===== Footer ===== */
-footer {
+body.tema-eva footer {
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.72rem;
     letter-spacing: 0.06em;
-    color: var(--eva-text-muted);
     background: #030009 !important;
     border-top: 1px solid var(--eva-border) !important;
-    padding: 0.85rem 0 !important;
     text-transform: uppercase;
 }
 
 /* ===== Login ===== */
-.bg-login {
-    background-color: var(--eva-bg);
+body.tema-eva.bg-login {
     background-image:
         linear-gradient(rgba(45,18,84,0.08) 1px, transparent 1px),
         linear-gradient(90deg, rgba(45,18,84,0.08) 1px, transparent 1px);
     background-size: 40px 40px;
 }
 
-.login-card {
-    width: 100%;
-    max-width: 420px;
-    border-radius: 4px !important;
-}
-
-.login-tag {
-    display: inline-block;
+body.tema-eva .login-tag {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.6rem;
     letter-spacing: 0.15em;
@@ -516,19 +841,8 @@ footer {
     margin-bottom: 1rem;
 }
 
-/* cursor piscando no login */
-.blink {
-    animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0; }
-}
-
 /* barra de status no card */
-.eva-status-bar {
-    height: 3px;
+body.tema-eva .eva-status-bar {
     background: linear-gradient(90deg, var(--eva-purple), var(--eva-green), var(--eva-purple));
     background-size: 200% 100%;
     animation: statusbar 3s linear infinite;
@@ -541,149 +855,108 @@ footer {
 }
 
 /* ===== Caixas de totais (página de transações) ===== */
-.stat-box {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 18px;
-    border-radius: 4px;
-    border: 1px solid;
+body.tema-eva .stat-box {
     font-family: 'Share Tech Mono', monospace;
 }
 
-.stat-box-label {
+body.tema-eva .stat-box-label {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.68rem;
     letter-spacing: 0.12em;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 2px;
 }
 
-.stat-box-value {
-    font-size: 1.05rem;
-    font-weight: 700;
-    display: block;
+body.tema-eva .stat-box-value {
     letter-spacing: 0.03em;
 }
 
-.stat-box-icon {
-    font-size: 1.2rem;
-    opacity: 0.8;
-}
-
-.stat-box.receita {
+body.tema-eva .stat-box.receita {
     background: rgba(57,255,20,0.07);
     border-color: rgba(57,255,20,0.35);
-    color: #4ade80;
 }
-.stat-box.receita .stat-box-value { color: #39ff14; text-shadow: 0 0 8px rgba(57,255,20,0.5); }
-.stat-box.receita .stat-box-label { color: rgba(57,255,20,0.6); }
+body.tema-eva .stat-box.receita .stat-box-value { color: #39ff14; text-shadow: 0 0 8px rgba(57,255,20,0.5); }
+body.tema-eva .stat-box.receita .stat-box-label { color: rgba(57,255,20,0.6); }
 
-.stat-box.despesa {
+body.tema-eva .stat-box.despesa {
     background: rgba(249,115,22,0.07);
     border-color: rgba(249,115,22,0.35);
-    color: #fb923c;
 }
-.stat-box.despesa .stat-box-value { color: #f97316; text-shadow: 0 0 8px rgba(249,115,22,0.4); }
-.stat-box.despesa .stat-box-label { color: rgba(249,115,22,0.6); }
+body.tema-eva .stat-box.despesa .stat-box-value { color: #f97316; text-shadow: 0 0 8px rgba(249,115,22,0.4); }
+body.tema-eva .stat-box.despesa .stat-box-label { color: rgba(249,115,22,0.6); }
 
-.stat-box.saldo-pos {
+body.tema-eva .stat-box.saldo-pos {
     background: rgba(124,58,237,0.1);
     border-color: rgba(124,58,237,0.4);
 }
-.stat-box.saldo-pos .stat-box-value { color: #a78bfa; text-shadow: 0 0 8px rgba(124,58,237,0.4); }
-.stat-box.saldo-pos .stat-box-label { color: rgba(167,139,250,0.6); }
+body.tema-eva .stat-box.saldo-pos .stat-box-value { color: #a78bfa; text-shadow: 0 0 8px rgba(124,58,237,0.4); }
+body.tema-eva .stat-box.saldo-pos .stat-box-label { color: rgba(167,139,250,0.6); }
 
-.stat-box.saldo-neg {
+body.tema-eva .stat-box.saldo-neg {
     background: rgba(239,68,68,0.07);
     border-color: rgba(239,68,68,0.35);
 }
-.stat-box.saldo-neg .stat-box-value { color: #ef4444; text-shadow: 0 0 8px rgba(239,68,68,0.4); }
-.stat-box.saldo-neg .stat-box-label { color: rgba(239,68,68,0.6); }
+body.tema-eva .stat-box.saldo-neg .stat-box-value { color: #ef4444; text-shadow: 0 0 8px rgba(239,68,68,0.4); }
+body.tema-eva .stat-box.saldo-neg .stat-box-label { color: rgba(239,68,68,0.6); }
 
 /* ===== Colunas especiais da tabela ===== */
-.col-categoria {
+body.tema-eva .col-categoria {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 0.85rem;
-    color: #a78bfa;          /* roxo suave — remete à paleta EVA */
+    color: #a78bfa;
     letter-spacing: 0.03em;
 }
 
-.col-data {
+body.tema-eva .col-data {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 0.85rem;
-    color: #fcd34d;          /* âmbar — cor de alerta/timestamp NERV */
+    color: #fcd34d;
     letter-spacing: 0.05em;
 }
 
 /* ===== Badge de tipo na tabela ===== */
-.tipo-tag {
+body.tema-eva .tipo-tag {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.65rem;
-    font-weight: 700;
     letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 4px 12px;
     border-radius: 3px;
-    border: 1px solid;
-    white-space: nowrap;
 }
 
-.tipo-tag.receita {
+body.tema-eva .tipo-tag.receita {
     background: rgba(57,255,20,0.08);
     border-color: rgba(57,255,20,0.3);
     color: #4ade80;
 }
 
-.tipo-tag.despesa {
+body.tema-eva .tipo-tag.despesa {
     background: rgba(249,115,22,0.08);
     border-color: rgba(249,115,22,0.3);
     color: #fb923c;
 }
 
 /* ===== Metas — barra de progresso ===== */
-.meta-progress-track {
-    width: 100%;
-    height: 6px;
+body.tema-eva .meta-progress-track {
     background: rgba(45,18,84,0.5);
-    border-radius: 3px;
-    overflow: hidden;
 }
 
-.meta-progress-fill {
-    height: 100%;
-    border-radius: 3px;
-    background: var(--eva-purple-light);
-    transition: width 0.6s ease;
-}
-
-.meta-card {
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.meta-card:hover {
+body.tema-eva .meta-card:hover {
     box-shadow: var(--eva-glow-purple) !important;
 }
 
 /* ===== Form switch (toggle ativa/inativa) ===== */
-.form-check-input:checked {
+body.tema-eva .form-check-input:checked {
     background-color: var(--eva-purple);
     border-color: var(--eva-purple);
 }
 
-.form-check-input:focus {
+body.tema-eva .form-check-input:focus {
     box-shadow: 0 0 0 3px rgba(124,58,237,0.25);
     border-color: var(--eva-purple);
 }
 
 /* ===== Nav Tabs (página de perfil) ===== */
-.nav-tabs {
+body.tema-eva .nav-tabs {
     border-bottom: 1px solid var(--eva-border) !important;
     gap: 4px;
 }
 
-.nav-tabs .nav-link {
+body.tema-eva .nav-tabs .nav-link {
     background: transparent !important;
     border: 1px solid transparent !important;
     border-radius: 4px 4px 0 0 !important;
@@ -698,38 +971,32 @@ footer {
     text-shadow: none !important;
 }
 
-.nav-tabs .nav-link:hover {
+body.tema-eva .nav-tabs .nav-link:hover {
     background: rgba(124,58,237,0.08) !important;
     border-color: var(--eva-border) !important;
     color: var(--eva-purple-light) !important;
 }
 
-.nav-tabs .nav-link.active {
+body.tema-eva .nav-tabs .nav-link.active {
     background: rgba(124,58,237,0.12) !important;
     border-color: var(--eva-border-bright) var(--eva-border-bright) transparent !important;
     color: var(--eva-purple-light) !important;
     text-shadow: 0 0 8px rgba(167,139,250,0.4) !important;
 }
 
-.nav-tabs .nav-link.text-danger {
+body.tema-eva .nav-tabs .nav-link.text-danger {
     color: rgba(239,68,68,0.6) !important;
 }
 
-.nav-tabs .nav-link.text-danger:hover {
+body.tema-eva .nav-tabs .nav-link.text-danger:hover {
     color: var(--eva-red) !important;
     background: rgba(239,68,68,0.08) !important;
     border-color: rgba(239,68,68,0.3) !important;
 }
 
-.nav-tabs .nav-link.text-danger.active {
+body.tema-eva .nav-tabs .nav-link.text-danger.active {
     color: var(--eva-red) !important;
     background: rgba(239,68,68,0.1) !important;
     border-color: rgba(239,68,68,0.5) rgba(239,68,68,0.5) transparent !important;
     text-shadow: 0 0 8px rgba(239,68,68,0.4) !important;
-}
-
-/* ===== Mobile ===== */
-@media (max-width: 576px) {
-    .summary-card .card-body { padding: 0.85rem; }
-    .container-fluid { padding-left: 1rem; padding-right: 1rem; }
 }

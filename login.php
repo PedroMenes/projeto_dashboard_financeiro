@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/tema.php';
 require_once __DIR__ . '/config/database.php';
+
+$tema = getTema();
 
 if (isLoggedIn()) {
     header('Location: /projeto_dashboard_financeiro/dashboard.php');
@@ -30,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-bs-theme="<?= htmlspecialchars(getBsTheme()) ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,9 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link href="/projeto_dashboard_financeiro/assets/css/custom.css" rel="stylesheet">
 </head>
-<body class="bg-login d-flex align-items-center justify-content-center min-vh-100">
+<body class="tema-<?= htmlspecialchars($tema) ?> bg-login d-flex align-items-center justify-content-center min-vh-100">
 
+<?php if ($tema === 'eva'): ?>
 <canvas id="mechaBg" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+<?php endif; ?>
 
 <div class="card login-card" style="position:relative;z-index:1;">
     <div class="eva-status-bar"></div>
@@ -120,6 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<?php if ($tema === 'eva'): ?>
 <script>
 (function () {
     const canvas = document.getElementById('mechaBg');
@@ -500,5 +506,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     requestAnimationFrame(draw);
 })();
 </script>
+<?php endif; ?>
 </body>
 </html>

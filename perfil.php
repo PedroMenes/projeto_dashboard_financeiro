@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/tema.php';
 require_once __DIR__ . '/config/database.php';
 requireLogin();
 
@@ -81,6 +82,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_dados'])) {
     }
 }
 
+// --- ATUALIZAR TEMA ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_tema'])) {
+    $aba = 'aparencia';
+    setTema($_POST['tema'] ?? 'normal');
+    $sucesso = 'Tema atualizado com sucesso!';
+}
+
 // --- EXCLUIR CONTA ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_conta'])) {
     $senhaConfirm = $_POST['senha_excluir'] ?? '';
@@ -136,6 +144,12 @@ include __DIR__ . '/includes/navbar.php';
             <a class="nav-link <?= $aba === 'dados' ? 'active' : '' ?>"
                href="/projeto_dashboard_financeiro/perfil.php?aba=dados">
                 <i class="bi bi-person-gear me-1"></i>Editar Dados
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <?= $aba === 'aparencia' ? 'active' : '' ?>"
+               href="/projeto_dashboard_financeiro/perfil.php?aba=aparencia">
+                <i class="bi bi-palette me-1"></i>Aparência
             </a>
         </li>
         <li class="nav-item">
@@ -207,6 +221,55 @@ include __DIR__ . '/includes/navbar.php';
 
                 <button type="submit" name="salvar_dados" class="btn btn-primary px-4">
                     <i class="bi bi-check-lg me-2"></i>Salvar Alterações
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ABA: Aparência -->
+    <?php elseif ($aba === 'aparencia'): ?>
+    <div class="card form-card shadow-sm">
+        <div class="card-body p-4">
+            <form method="POST" novalidate>
+                <input type="hidden" name="aba" value="aparencia">
+
+                <h6 class="page-subtitle mb-1">// TEMA DO SISTEMA</h6>
+                <p class="page-subtitle mb-3" style="font-size:0.75rem;">
+                    Escolha a aparência visual do sistema. A alteração é aplicada imediatamente em todas as telas.
+                </p>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-sm-4">
+                        <input type="radio" class="btn-check" name="tema" id="temaNormal" value="normal" autocomplete="off"
+                               <?= getTema() === 'normal' ? 'checked' : '' ?>>
+                        <label class="btn btn-outline-secondary w-100 h-100 text-start p-3" for="temaNormal">
+                            <i class="bi bi-sun fs-4 d-block mb-2"></i>
+                            <strong>Normal</strong>
+                            <div class="page-subtitle mt-1" style="font-size:0.7rem;">Visual clássico e claro</div>
+                        </label>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <input type="radio" class="btn-check" name="tema" id="temaEscuro" value="escuro" autocomplete="off"
+                               <?= getTema() === 'escuro' ? 'checked' : '' ?>>
+                        <label class="btn btn-outline-secondary w-100 h-100 text-start p-3" for="temaEscuro">
+                            <i class="bi bi-moon-stars fs-4 d-block mb-2"></i>
+                            <strong>Escuro</strong>
+                            <div class="page-subtitle mt-1" style="font-size:0.7rem;">Visual clássico em tons escuros</div>
+                        </label>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <input type="radio" class="btn-check" name="tema" id="temaEva" value="eva" autocomplete="off"
+                               <?= getTema() === 'eva' ? 'checked' : '' ?>>
+                        <label class="btn btn-outline-secondary w-100 h-100 text-start p-3" for="temaEva">
+                            <i class="bi bi-hexagon fs-4 d-block mb-2"></i>
+                            <strong>EVA // NERV System</strong>
+                            <div class="page-subtitle mt-1" style="font-size:0.7rem;">Visual sci-fi inspirado em Evangelion</div>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" name="salvar_tema" class="btn btn-primary px-4">
+                    <i class="bi bi-check-lg me-2"></i>Aplicar Tema
                 </button>
             </form>
         </div>
