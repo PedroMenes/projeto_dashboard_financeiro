@@ -1,0 +1,106 @@
+# Gera o APK do app Flutter nos servidores do GitHub.
+#
+# Quando roda:
+#   - A cada envio para a branch main
+#   - Quando voce clica em "Run workflow" na aba Actions
+#   - Quando um marcador de versao (ex.: v1.0.0) e enviado -- nesse caso
+#     tambem publica uma Release com o APK anexado
+#
+# Onde baixar o APK:
+#   Aba "Actions" do repositorio > escolha a execucao > secao "Artifacts"
+
+name: Gerar APK
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+# Se um novo envio chegar enquanto o anterior ainda roda, cancela o antigo.
+concurrency:
+  group: apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    name: Compilar APK
+    runs-on: ubuntu-latest
+
+    # Necessario para publicar a Release quando houver marcador de versao.
+    permissions:
+      contents: write
+
+    defaults:
+      run:
+        working-directory: app_flutter
+
+    steps:
+      - name: Baixar o codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar o Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Instalar o Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          channel: stable
+          cache: true
+
+      - name: Baixar as dependencias
+        run: flutter pub get
+
+      - name: Conferir o codigo
+        run: flutter analyze
+
+      - name: Rodar os testes
+        run: flutter test
+
+      # O APK e assinado com a chave de depuracao padrao do Flutter.
+      # Instala normalmente no celular, basta permitir "fontes desconhecidas".
+      # Para publicar na Play Store seria preciso uma chave propria.
+      - name: Compilar o APK
+        run: flutter build apk --release
+
+      - name: Renomear o APK
+        run: |
+          mv build/app/outputs/flutter-apk/app-release.apk \
+             build/app/outputs/flutter-apk/controle-financeiro-nerv.apk
+
+      - name: Publicar o APK como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: controle-financeiro-nerv-apk
+          path: app_flutter/build/app/outputs/flutter-apk/controle-financeiro-nerv.apk
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Publicar Release (apenas em marcadores de versao)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: app_flutter/build/app/outputs/flutter-apk/controle-financeiro-nerv.apk
+          generate_release_notes: true
+          body: |
+            ## Controle Financeiro // NERV
+
+            App de controle financeiro pessoal. Os dados ficam salvos no
+            proprio aparelho, sem precisar de servidor ou internet.
+
+            ### Como instalar
+            1. Baixe o arquivo `controle-financeiro-nerv.apk` abaixo
+            2. Abra o arquivo no celular Android
+            3. Se o sistema pedir, permita a instalacao de fontes desconhecidas
+
+            ### Acesso de demonstracao
+            O banco e criado na primeira abertura, ja com as categorias padrao:
+
+            ```
+            E-mail : admin@financeiro.com
+            Senha  : 123456
+            ```
