@@ -23,3 +23,6 @@ error_log
 
 # Uploads de usuários (se houver)
 uploads/
+
+# Configuracao local do Claude Code (caminhos desta maquina)
+.claude/
